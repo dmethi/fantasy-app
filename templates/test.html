@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %} {{variable}} {% endblock %}
+{% block content %}
+    <h1>{{variable}}</h1>
+    <p>Test Content</p>
+    <div id="chart"></div>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script type='text/javascript'>
+      var graphs = {{fig | safe}};
+      Plotly.plot('chart',graphs,{});
+    </script>
+{% endblock %}
