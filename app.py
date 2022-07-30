@@ -19,4 +19,3 @@ def function(variable):
 
 ## add functions here (or in lib function) that create the charts
 ## pass each chart as a variable?
-
