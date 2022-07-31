@@ -17,5 +17,8 @@ def function(variable):
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template('test.html', variable=variable, fig=graphJSON)
 
+if __name__ == '__main__':
+    app.run()
+
 ## add functions here (or in lib function) that create the charts
 ## pass each chart as a variable?
