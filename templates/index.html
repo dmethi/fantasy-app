@@ -3,15 +3,14 @@
 {% block title %} House Realest {% endblock %}
 
 {% block content %}
+
 <body>
-   <div class="header">
-      <h1>House Realest</h1>
-      <div class="nav">
-         <p><a href="{{ url_for('function', variable='dhruv')}}">dhruv</a></p>
-         <p><a href="{{ url_for('function', variable='krish')}}">krish</a></p>
+   <div class="content">
+      <h2>Weekly Recap</h2>
+      <div class="recap-text">
+         You can view the weekly recaps <a href="https://houserealest.substack.com/">here.</a>
       </div>
-   </div>
-   <div class="body">
+      <h2>League Standings</h2>
       <div class="homepage-table">
          {{ tables[0] | safe }}
       </div>
