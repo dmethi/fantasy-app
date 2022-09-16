@@ -6,6 +6,5 @@ psycopg2>=2.0,<3.0
 flask>=2.1.0
 plotly>=5.9.0
 pandas>=1.4.3
-json>=2.0.9
 requests>=2.22.0
 scipy>=1.9.1
