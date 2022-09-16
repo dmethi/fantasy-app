@@ -1,13 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    <title>FlaskBlog</title>
-</head>
+{% extends 'base.html' %}
+
+{% block title %} House Realest {% endblock %}
+
+{% block content %}
 <body>
-   <h1>House Realest</h1>
-   <p><a href="{{ url_for('function', variable='dhruv')}}">dhruv</a></p>
-   <p><a href="{{ url_for('function', variable='krish')}}">krish</a></p>
+   <div class="header">
+      <h1>House Realest</h1>
+      <div class="nav">
+         <p><a href="{{ url_for('function', variable='dhruv')}}">dhruv</a></p>
+         <p><a href="{{ url_for('function', variable='krish')}}">krish</a></p>
+      </div>
+   </div>
+   <div class="body">
+      <div class="homepage-table">
+         {{ tables[0] | safe }}
+      </div>
+   </div>
 </body>
-</html>
+{% endblock %}

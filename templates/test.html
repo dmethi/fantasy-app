@@ -4,6 +4,10 @@
 {% block content %}
     <h1>{{variable}}</h1>
     <p>Test Content</p>
+    <p>{{data}}</p>
+    {% for table in tables %}
+      {{ table|safe }}
+    {% endfor %}
     <div id="chart"></div>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <script type='text/javascript'>
