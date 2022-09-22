@@ -64,7 +64,6 @@ def luckTable(table_data):
     return html
 
 def getWeeklyPositionalPointsChart(data):
-    week = []
     qb_points = []
     rb_points = []
     wr_points = []
@@ -247,14 +246,16 @@ def positionalEdges(owners, positional_data):
 
     owner_positions = []
     positional_edges = []
+    raw_points = []
 
     for owner in owner_avg_data:
         for position in league_avg_data:
             owner_string = owners[owner]['team_name'] + ' ' + position.upper()
+            raw_points.append(owner_avg_data[owner][position] )
             positional_edges.append((owner_avg_data[owner][position] - league_avg_data[position]))
             owner_positions.append(owner_string)
 
-    data = {'Owner': owner_positions, 'Edge vs. League Average': positional_edges}
+    data = {'Owner': owner_positions, 'Weekly Average': raw_points, 'Edge vs. League Average': positional_edges}
     df = pd.DataFrame(data = data)
     df = df.sort_values(by='Edge vs. League Average', ascending=False)
     th_props = [
@@ -269,7 +270,99 @@ def positionalEdges(owners, positional_data):
         })\
         .set_table_styles(styles)\
         .background_gradient(subset=['Edge vs. League Average'], cmap='RdYlGn')\
-        .format('{:.2f}', subset=['Edge vs. League Average'])
+        .format('{:.2f}', subset=['Edge vs. League Average', 'Weekly Average'])
+
+    return df.to_html()
+
+def positionalEdgesRevised(owners, positional_data):
+    qb_avg = 0
+    rb_avg = 0
+    wr_avg = 0
+    te_avg = 0
+    k_avg = 0
+    dst_avg = 0
+    flex_avg = 0
+
+    week_num = getCurrentWeek() - 1
+    owner_avg_data = {}
+    league_avg_data = {}
+
+    for week in positional_data:
+
+        for owner in positional_data[week]:
+            owner_qb_avg = 0
+            owner_rb_avg = 0
+            owner_wr_avg = 0
+            owner_te_avg = 0
+            owner_k_avg = 0
+            owner_dst_avg = 0
+            owner_flex_avg = 0
+
+            qb_avg += positional_data[week][owner]['qb'] / (week_num * 12)
+            rb_avg += positional_data[week][owner]['rb'] / (week_num * 12)
+            wr_avg += positional_data[week][owner]['wr'] / (week_num * 12)
+            te_avg += positional_data[week][owner]['te'] / (week_num * 12)
+            k_avg += positional_data[week][owner]['k'] / (week_num * 12)
+            dst_avg += positional_data[week][owner]['dst'] / (week_num * 12)
+            flex_avg += positional_data[week][owner]['flex'] / (week_num * 12)
+
+            owner_qb_avg += positional_data[week][owner]['qb'] / week_num
+            owner_rb_avg += positional_data[week][owner]['rb'] / week_num
+            owner_wr_avg += positional_data[week][owner]['wr'] / week_num
+            owner_te_avg += positional_data[week][owner]['te'] / week_num
+            owner_k_avg += positional_data[week][owner]['k'] / week_num
+            owner_dst_avg += positional_data[week][owner]['dst'] / week_num
+            owner_flex_avg += positional_data[week][owner]['flex'] / week_num
+
+            if owner not in owner_avg_data.keys():
+                owner_avg_data[owner] = {'qb': owner_qb_avg, 'rb': owner_rb_avg, 'wr': owner_wr_avg, 'te': owner_te_avg, 'k': owner_k_avg, 'dst': owner_dst_avg, 'flex': owner_flex_avg}
+            else:
+                owner_avg_data[owner]['qb'] += owner_qb_avg
+                owner_avg_data[owner]['rb'] += owner_rb_avg
+                owner_avg_data[owner]['wr'] += owner_wr_avg
+                owner_avg_data[owner]['te'] += owner_te_avg
+                owner_avg_data[owner]['k'] += owner_k_avg
+                owner_avg_data[owner]['dst'] += owner_dst_avg
+                owner_avg_data[owner]['flex'] += owner_flex_avg
+
+    league_avg_data['qb'] = qb_avg
+    league_avg_data['rb'] = rb_avg
+    league_avg_data['wr'] = wr_avg
+    league_avg_data['te'] = te_avg
+    league_avg_data['k'] = k_avg
+    league_avg_data['dst'] = dst_avg
+    league_avg_data['flex'] = flex_avg
+    # put in pandas df
+    # sort + retrieve top 5 and bottom 5
+    # get league averages too for individual owner tables
+
+    owner_positions = []
+    positional_edges = []
+    raw_points = []
+
+    for owner in owner_avg_data:
+        for position in league_avg_data:
+            owner_string = owners[owner]['team_name'] + ' ' + position.upper()
+            raw_points.append(owner_avg_data[owner][position])
+            positional_edges.append((owner_avg_data[owner][position] - league_avg_data[position]))
+            owner_positions.append(owner_string)
+
+    data = {'Owner': owner_positions, 'Weekly Average': raw_points, 'Edge vs. League Average': positional_edges}
+    df = pd.DataFrame(data = data)
+    df = df.sort_values(by='Edge vs. League Average', ascending=False)
+    th_props = [
+        ('font-size', '10px'),
+        ('text-align', 'center'),
+    ]
+    styles=[dict(selector='th', props=th_props)]
+    df = df.style.hide(axis='index')\
+        .set_properties(**{
+            'text-align': 'center',
+            'height': '30px',
+        })\
+        .set_table_styles(styles)\
+        .background_gradient(subset=['Edge vs. League Average'], cmap='RdYlGn')\
+        .format('{:.2f}', subset=['Edge vs. League Average', 'Weekly Average'])
 
     return df.to_html()
 

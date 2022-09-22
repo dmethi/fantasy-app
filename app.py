@@ -3,8 +3,8 @@ from flask import Flask, render_template, url_for
 import plotly.express as px
 import json
 import requests
-from owners import getOwners, getWeeklyOwnersTable, getWeeklyPositionalPoints, hallOfFameAndShame, scheduleAnalysis
-from dataviz import homepageTable, luckTable, getWeeklyPositionalPointsChart, schedulesTable, scheduleStrength, positionalEdges, getRosters
+from owners import getOwners, getWeeklyOwnersTable, getWeeklyPositionalPoints, hallOfFameAndShame, scheduleAnalysis, positionalPointsRevised
+from dataviz import homepageTable, luckTable, getWeeklyPositionalPointsChart, schedulesTable, scheduleStrength, positionalEdges, getRosters, positionalEdgesRevised
 from sleeperApi import getCurrentWeek, getWeeklyMatchups, getWeeklyPlayerData
 
 app = Flask(__name__)
@@ -22,6 +22,8 @@ hall = hallOfFameAndShame(positional_points, owners)
 schedules = scheduleAnalysis(owners)
 sched_strength = scheduleStrength(schedules, owners)
 edges = positionalEdges(owners, positional_points)
+revised_positional_points = positionalPointsRevised(weekly_matchups, owners)
+edges_revised = positionalEdgesRevised(owners, revised_positional_points)
 
 #######################################
 # APP ROUTES
@@ -32,7 +34,7 @@ def index():
     homeTable = homepageTable(owners)
     luck = luckTable(owners)
     positional_chart = getWeeklyPositionalPointsChart(positional_points)
-    return render_template('index.html', tables=[homeTable, luck, positional_chart, sched_strength, edges], hall=hall)
+    return render_template('index.html', tables=[homeTable, luck, positional_chart, sched_strength, edges, edges_revised], hall=hall, data=owners)
 
 @app.route('/test/<id>')
 def function(id):

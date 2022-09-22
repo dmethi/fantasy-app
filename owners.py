@@ -359,6 +359,86 @@ def getWeeklyPositionalPoints(matchups, ownersDict):
         i += 1
     return positional_points_dict
 
+def positionalPointsRevised(matchups, ownersDict):
+    players_data = open('static/players.json')
+    players = json.load(players_data)
+    positional_points_dict = {}
+    i = 1
+    for week in matchups:
+        week_dict =  {}
+        for matchup in week:
+            qb_points = 0
+            rb_points = 0
+            wr_points = 0
+            te_points = 0
+            k_points = 0
+            dst_points = 0
+            flex_points = 0
+
+            rb_scores = []
+            wr_scores = []
+            te_scores = []
+
+            owner_id = ''
+            for owner in ownersDict:
+                if ownersDict[owner]['roster_id'] == matchup['roster_id']:
+                    owner_id = owner
+
+            for player in matchup['starters']:
+                if player != '0':
+                    if players[player]['position'] == 'QB':
+                        qb_points = qb_points + matchup['players_points'][player]
+                    elif players[player]['position'] == 'RB':
+                        rb_scores.append(matchup['players_points'][player])
+                    elif players[player]['position'] == 'WR':
+                        wr_scores.append(matchup['players_points'][player])
+                    elif players[player]['position'] == 'TE':
+                        te_scores.append(matchup['players_points'][player])
+                    elif players[player]['position'] == 'K':
+                        k_points = k_points + matchup['players_points'][player]
+                    else:
+                        dst_points = dst_points + matchup['players_points'][player]
+
+            if len(rb_scores) == 3:
+                flex_points += min(rb_scores)
+                for a in rb_scores:
+                    rb_points += a
+                rb_points -= flex_points
+            else:
+                for b in rb_scores:
+                    rb_points += b
+
+            if len(wr_scores) == 3:
+                flex_points += min(wr_scores)
+                for c in wr_scores:
+                    wr_points += c
+                wr_points -= flex_points
+            else:
+                for d in wr_scores:
+                    wr_points += d
+
+            if len(te_scores) == 2:
+                flex_points += min(te_scores)
+                for e in te_scores:
+                    te_points += e
+                te_points -= flex_points
+            else:
+                for f in te_scores:
+                    te_points += f
+
+            week_dict[owner_id] = {
+                'qb': qb_points,
+                'rb': rb_points,
+                'wr': wr_points,
+                'te': te_points,
+                'k': k_points,
+                'dst': dst_points,
+                'flex': flex_points
+            }
+        positional_points_dict[i] = week_dict
+        i += 1
+    return positional_points_dict
+
 def hallOfFameAndShame(positional_points, ownersDict):
     highest_weekly_total = {'points': 0, 'owner': '', 'week': 0}
     lowest_weekly_total = {'points': 100, 'owner': '', 'week': 0}
