@@ -3,17 +3,92 @@
 {% block title %} House Realest {% endblock %}
 
 {% block content %}
-
 <body>
    <div class="content">
       <h2>Weekly Recap</h2>
       <div class="recap-text">
-         You can view the weekly recaps <a href="https://houserealest.substack.com/">here.</a>
+         <a href="https://houserealest.substack.com/">Click here</a> to view the weekly recaps.
       </div>
       <h2>League Standings</h2>
+      <p>*Note -- Power Rank is a combination of avg. score per week, avg. score for the last three weeks, and overall optimal points.</p>
       <div class="homepage-table">
          {{ tables[0] | safe }}
       </div>
+      <h2>Luck Rating</h2>
+      <p>Uses a combination of weekly expected wins and points relative to weekly min / max.</p>
+      <div class='luck-chart'>
+         {{ tables[1] | safe }}
+      </div>
+      <h2>Weekly Average Points by Position</h2>
+      <p>Breakdown of average points per position in the league each week.</p>
+      <div class='positional_chart'>
+         {{ tables[2] | safe }}
+      </div>
+      <h2>Wins Gained / Lost Due to Schedule</h2>
+      <p>Another way of looking at luck. This takes the average of the record others teams would have if they played the teams you did, and substracts the average of the record you would have if you played the teams everyone else did.</p>
+      <div class="sched-chart">
+         {{ tables[3] | safe }}
+      </div>
+      <h2>Positional Edges vs. League Average</h2>
+      <p>This tracks each team's average points from a positional group vs. league average.</p>
+      <div class="edges-table">
+         {{ tables[4] | safe }}
+      </div>
+      <h2>Hall of Fame</h2>
+      <div class="hall-data">
+         <div class="hall-item">
+            <p><b>Highest Weekly Score: </b>{{hall['highest_weekly_total']['points']}}, Week {{hall['highest_weekly_total']['week']}} {{hall['highest_weekly_total']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Highest Margin of Victory: </b>{{hall['highest_mov']['points']}}, Week {{hall['highest_mov']['week']}} {{hall['highest_mov']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Highest Weekly QB Score: </b>{{hall['highest_qb_weekly_score']['points']}}, Week {{hall['highest_qb_weekly_score']['week']}} {{hall['highest_qb_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Highest Weekly RB Score: </b>{{hall['highest_rb_weekly_score']['points']}}, Week {{hall['highest_rb_weekly_score']['week']}} {{hall['highest_rb_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Highest Weekly WR Score: </b>{{hall['highest_wr_weekly_score']['points']}}, Week {{hall['highest_wr_weekly_score']['week']}} {{hall['highest_wr_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Highest Weekly TE Score: </b>{{hall['highest_te_weekly_score']['points']}}, Week {{hall['highest_te_weekly_score']['week']}} {{hall['highest_te_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Highest Weekly K Score: </b>{{hall['highest_k_weekly_score']['points']}}, Week {{hall['highest_k_weekly_score']['week']}} {{hall['highest_k_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Highest Weekly DST Score: </b>{{hall['highest_dst_weekly_score']['points']}}, Week {{hall['highest_dst_weekly_score']['week']}} {{hall['highest_dst_weekly_score']['owner']}}</p>
+         </div>
+      </div>
+      <h2>Hall of Shame</h2>
+      <div class="hall-data">
+         <div class="hall-item">
+            <p><b>Lowest Weekly Score: </b>{{hall['lowest_weekly_total']['points']}}, Week {{hall['lowest_weekly_total']['week']}} {{hall['lowest_weekly_total']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Lowest Margin of Victory: </b>{{hall['lowest_mov']['points']}}, Week {{hall['lowest_mov']['week']}} {{hall['lowest_mov']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Lowest Weekly QB Score: </b>{{hall['lowest_qb_weekly_score']['points']}}, Week {{hall['lowest_qb_weekly_score']['week']}} {{hall['lowest_qb_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Lowest Weekly RB Score: </b>{{hall['lowest_rb_weekly_score']['points']}}, Week {{hall['lowest_rb_weekly_score']['week']}} {{hall['lowest_rb_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Lowest Weekly WR Score: </b>{{hall['lowest_wr_weekly_score']['points']}}, Week {{hall['lowest_wr_weekly_score']['week']}} {{hall['lowest_wr_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Lowest Weekly TE Score: </b>{{hall['lowest_te_weekly_score']['points']}}, Week {{hall['lowest_te_weekly_score']['week']}} {{hall['lowest_te_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Lowest Weekly K Score: </b>{{hall['lowest_k_weekly_score']['points']}}, Week {{hall['lowest_k_weekly_score']['week']}} {{hall['lowest_k_weekly_score']['owner']}}</p>
+         </div>
+         <div class="hall-item">
+            <p><b>Lowest Weekly DST Score: </b>{{hall['lowest_dst_weekly_score']['points']}}, Week {{hall['lowest_dst_weekly_score']['week']}} {{hall['lowest_dst_weekly_score']['owner']}}</p>
+         </div>
+      </div>
    </div>
 </body>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 {% endblock %}

@@ -1,13 +1,33 @@
 {% extends 'base.html' %}
 
-{% block title %} {{variable}} {% endblock %}
+{% block title %} {{team_metadata[0]}} {% endblock %}
 {% block content %}
-    <h1>{{variable}}</h1>
-    <p>Test Content</p>
-    <p>{{data}}</p>
-    {% for table in tables %}
-      {{ table|safe }}
-    {% endfor %}
+    <div class='team-name'><h1>{{team_metadata[0]}}</h1></div>
+    <div class="team-metadata">
+      <div class="metadata-item">
+        <h3>Record</h3>
+        <p>{{team_metadata[1]}}</p>
+      </div>
+      <div class="metadata-item">
+        <h3>Power Rank</h3>
+        <p>{{team_metadata[2]}}</p>
+      </div>
+      <div class="metadata-item">
+        <h3>Points per Week</h3>
+        <p>{{team_metadata[3]}}</p>
+      </div>
+    </div>
+    <div class="weekly-table">
+      <p>{{weekly_dict | safe}}</p>
+    </div>
+    <h2>Schedule Analysis</h2>
+    <div class="schedules-table">
+      {{schedules_table | safe}}
+    </div>
+    <h2>Current Roster</h2>
+    <div class="roster">
+      {{ roster | safe }}
+    </div>
     <div id="chart"></div>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <script type='text/javascript'>

@@ -5,11 +5,11 @@ def getCurrentWeek() -> int:
     nfl_state = requests.get('https://api.sleeper.app/v1/state/nfl').json()
     return nfl_state['week']
 
-def getSeasonStats() -> any:
-    return requests.get('https://api.sleeper.app/v1/stats/regular/2022').json()
-
 def getRosters() -> any:
     return requests.get('https://api.sleeper.app/v1/league/858866071007019008/rosters').json()
+
+def getUsers() -> any:
+    return requests.get('https://api.sleeper.app/v1/league/858866071007019008/users').json()
 
 def getWeeklyMatchups(week) -> array:
     weekly_matchups_data = []

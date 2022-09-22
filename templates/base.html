@@ -3,14 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>{% block title %} Test {% endblock %}</title>
 </head>
 <div class="header">
-    <h1>🏈 House Realest 🏈</h1>
+    <div class="header-title"><img src="{{ url_for('static', filename= 'logo.png') }}" class="logo"><div class='test'><h1><a href="{{ url_for('index')}}">House Realest </a></h1></div><img class="logo" src="{{ url_for('static', filename= 'logo.png') }}">
+</div>
     <div class="subheader"><p>An analytical deep dive into the fantasy football season.</p></div>
     <div class="nav">
-       <p><a href="{{ url_for('function', variable='dhruv')}}">dhruv</a></p>
-       <p><a href="{{ url_for('function', variable='krish')}}">krish</a></p>
+       <p><a href="{{ url_for('function', id='465307317622009856')}}">Methis</a></p>
+       <p><a href="{{ url_for('function', id='465597682543489024')}}">Madurais</a></p>
+       <p><a href="{{ url_for('function', id='465602326061641728')}}">Sitarams</a></p>
+       <p><a href="{{ url_for('function', id='465598243170938880')}}">Varun</a></p>
+       <p><a href="{{ url_for('function', id='465595022805299200')}}">Shivang</a></p>
+       <p><a href="{{ url_for('function', id='465605381364641792')}}">Kishan</a></p>
+       <p><a href="{{ url_for('function', id='605831432044093440')}}">Ishan</a></p>
+       <p><a href="{{ url_for('function', id='465620438987304960')}}">Aman</a></p>
+       <p><a href="{{ url_for('function', id='465677200167792640')}}">Anant</a></p>
+       <p><a href="{{ url_for('function', id='467817096131112960')}}">Anish</a></p>
+       <p><a href="{{ url_for('function', id='465708038221721600')}}">Jeffrey</a></p>
+       <p><a href="{{ url_for('function', id='469913263069458432')}}">Akshay</a></p>
     </div>
     <div class="separator"></div>
  </div>

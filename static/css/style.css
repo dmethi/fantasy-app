@@ -7,13 +7,12 @@
 .subheader {
     text-align: center;
     font-family: 'Avenir';
-    font-size: 20px;
     margin-bottom: -10px;
 }
 
 .separator {
     border-bottom: 0.25px solid black;
-    width: 60%;
+    width: 75%;
     margin: auto;
 }
 
@@ -24,6 +23,14 @@ h1 {
     text-align: center;
     font-size: 3em;
     margin-bottom: -10px;
+    margin-top: 0px;
+}
+
+h2 {
+    font-size: 2.5em;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    font-family: 'Avenir';
 }
 
 .nav {
@@ -36,7 +43,7 @@ h1 {
 
 a {
     text-decoration: none;
-    color: dodgerblue;
+    color: black;
 }
 
 table {
@@ -48,4 +55,38 @@ table {
 th {
     height: 20px;
     border-bottom: 0.5px solid black;
+}
+
+.team-metadata {
+    font-family: 'Avenir';
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    width: 75%;
+    margin: auto;
+}
+
+h3 {
+    margin-bottom: -10px;
+}
+
+.metadata-item {
+    width: 150px;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.logo {
+    max-height: 50px;
+}
+
+.team-name {
+    margin-top: 30px;
 }
